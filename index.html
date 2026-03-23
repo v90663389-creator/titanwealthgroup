@@ -464,13 +464,14 @@ window.onload = function () {
   }, 1500);
 
   /* CALL BUTTON (DIRECT USER ACTION) */
-  const callBtn = document.getElementById("callBtn");
-  if (callBtn) {
-    callBtn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      window.location.href = "tel:+18122668825";
-    });
-  }
+ const callBtn = document.getElementById("callBtn");
+
+if (callBtn) {
+  callBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    window.location.href = "tel:+18122668825";
+  });
+}
 
   /* CANCEL BUTTON (DO NOTHING) */
   const cancelBtn = document.getElementById("cancelBtn");
