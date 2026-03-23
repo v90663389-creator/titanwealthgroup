@@ -240,7 +240,9 @@ z-index:999999;
   gap:10px;
 }
 
-.buttons button{
+/* Apply flex to BOTH button and anchor */
+.buttons button,
+.buttons a{
   flex:1;
   padding:12px 0;
   border-radius:14px;
@@ -248,13 +250,20 @@ z-index:999999;
   font-size:15px;
   font-weight:500;
   cursor:pointer;
+  text-align:center;
+  text-decoration:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
+/* Cancel button */
 .cancel{
   background:#e5e5ea;
   color:#000;
 }
 
+/* Call button */
 .ok{
   background:#007aff;
   color:#fff;
