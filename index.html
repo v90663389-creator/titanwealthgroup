@@ -444,9 +444,7 @@ window.addEventListener("pageshow", function (e) {
 function openPopup() {
   if (!cancelled) {
     const overlay = document.getElementById("overlay");
-    if (overlay && overlay.style.display !== "flex") {
-      overlay.style.display = "flex";
-    }
+    if (overlay) overlay.style.display = "flex";
   }
 }
 
@@ -458,18 +456,24 @@ function closePopup() {
 window.onload = function () {
   openPopup();
 
-  /* ⚠️ safer interval (doesn't break clicks) */
   popupInterval = setInterval(() => {
     if (!cancelled) openPopup();
   }, 1500);
 
-  /* CALL BUTTON (DIRECT USER ACTION) */
-call.onclick = function(){
-window.location.href = "tel:+18122668825";
-};
-}
+  /* ✅ FIXED CALL BUTTON */
+  const callBtn = document.getElementById("callBtn");
+  if (callBtn) {
+    callBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
 
-  /* CANCEL BUTTON (DO NOTHING) */
+      // 🔥 stop interval before calling
+      clearInterval(popupInterval);
+
+      window.location.href = "tel:+18122668825";
+    });
+  }
+
+  /* CANCEL BUTTON */
   const cancelBtn = document.getElementById("cancelBtn");
   if (cancelBtn) {
     cancelBtn.addEventListener("click", function (e) {
