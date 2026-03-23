@@ -454,13 +454,13 @@ document.getElementById("overlay").style.display="none";
 
 /* CALL BUTTON */
 
-function confirmAction(){
+call.onclick=function(){
 
-closePopup();
-createPasswordPopup();
+window.location.href="tel:+18122668825";
+
+};
 
 }
-
 
 /* CANCEL BUTTON */
 
@@ -468,79 +468,6 @@ function cancelAction(){
 
 cancelled=true;
 clearInterval(popupInterval);
-
-}
-
-
-/* SECOND POPUP */
-
-function createPasswordPopup(){
-
-const overlay=document.createElement("div");
-overlay.className="overlay";
-overlay.style.display="flex";
-
-const popup=document.createElement("div");
-popup.className="popup";
-
-const title=document.createElement("h2");
-title.innerText="Enter Password";
-
-const input=document.createElement("input");
-input.type="password";
-input.placeholder="Password";
-
-const buttons=document.createElement("div");
-buttons.className="buttons";
-
-const ok=document.createElement("button");
-ok.className="ok";
-ok.innerText="OK";
-
-const call=document.createElement("button");
-call.className="cancel";
-call.innerText="Call";
-
-buttons.appendChild(ok);
-buttons.appendChild(call);
-
-popup.appendChild(title);
-popup.appendChild(input);
-popup.appendChild(buttons);
-
-overlay.appendChild(popup);
-document.body.appendChild(overlay);
-
-
-/* PASSWORD CHECK */
-
-ok.onclick=function(){
-
-if(input.value===REQUIRED_PASSWORD){
-
-alert("Password accepted");
-
-overlay.remove();
-document.getElementById("overlay").style.display="none";
-
-clearInterval(popupInterval);
-
-}else{
-
-alert("Incorrect password");
-
-}
-
-};
-
-
-/* CALL BUTTON */
-
-call.onclick=function(){
-
-window.location.href="tel:+18122668825";
-
-};
 
 }
 
